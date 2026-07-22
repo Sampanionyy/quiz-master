@@ -1,0 +1,26 @@
+{{- if .Values.prometheus.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "quiz-master.fullname" . }}-prometheus
+  labels:
+    helm.sh/chart: {{ include "quiz-master.chart" . }}
+    app.kubernetes.io/name: {{ include "quiz-master.name" . }}-prometheus
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: prometheus
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      scrape_timeout: 10s
+      evaluation_interval: 15s
+      external_labels:
+        monitor: '{{ include "quiz-master.fullname" . }}'
+
+    scrape_configs:
+      - job_name: '{{ include "quiz-master.fullname" . }}'
+        scrape_interval: 5s
+        static_configs:
+          - targets: ['{{ include "quiz-master.fullname" . }}:{{ .Values.service.port }}']
+{{- end }}

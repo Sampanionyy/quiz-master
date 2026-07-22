@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from prometheus_flask_exporter import PrometheusMetrics
 import sys
 import os
 
@@ -16,6 +17,9 @@ app = Flask(__name__, template_folder="templates")
 
 # Configuration pour les sessions (nécessaire pour le quiz)
 app.config['SECRET_KEY'] = 'votre-cle-secrete-ici-changez-la-en-production'
+
+# Expose les métriques Prometheus sur /metrics
+metrics = PrometheusMetrics(app)
 
 # Enregistrer les blueprints
 app.register_blueprint(students_bp, url_prefix='/students')
