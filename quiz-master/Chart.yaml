@@ -1,5 +1,5 @@
 apiVersion: v2
-name: first-chart
+name: quiz-master
 description: A Helm chart for Kubernetes
 replicaCount: 3
 image:

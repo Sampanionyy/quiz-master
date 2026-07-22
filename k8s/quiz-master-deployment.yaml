@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-deployment
+  name: quiz-master
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: flask-api
+      app: quiz-master
   template:
     metadata:
       labels:
-        app: flask-api
+        app: quiz-master
     spec:
       containers:
-        - name: flask-api
-          image: sampaniony/flask-api:latest
+        - name: quiz-master
+          image: sampaniony/quiz-master:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
