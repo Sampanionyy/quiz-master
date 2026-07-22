@@ -1,10 +1,10 @@
 apiVersion: v2
 name: quiz-master
 description: A Helm chart for Kubernetes
-replicaCount: 3
+replicaCount: {{ .Values.replicaCount }}
 image:
-  tag: v1.2.0  
-env: production
+  tag: {{ .Values.image.tag }}
+env: {{ .Values.env }}
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
