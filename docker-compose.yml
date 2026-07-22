@@ -18,3 +18,10 @@ services:
             - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
         command:
             - "--config.file=/etc/prometheus/prometheus.yml"
+
+    test:
+      build: .
+      volumes:
+        - .:/app
+      working_dir: /app
+      command: pytest -v
