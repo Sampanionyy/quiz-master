@@ -95,13 +95,11 @@ Tous les pods doivent afficher `1/1` et `Running`.
 
 ### Étape 3 — Déployer QuizMaster via ArgoCD
 
-Le fichier [argocd/quiz-master.yaml](argocd/quiz-master.yaml) dit à ArgoCD "surveille ce dépôt Git, et déploie le chart Helm qui s'y trouve". Il contient aussi une entrée pour un autre projet (`pdf-viewer`), qu'il ne faut pas modifier ici. Pour un premier essai en local sans déployer ce second projet, applique une copie limitée à `quiz-master` :
+Le fichier [argocd/quiz-master.yaml](argocd/quiz-master.yaml) dit à ArgoCD "surveille ce dépôt Git, et déploie le chart Helm qui s'y trouve" :
 
 ```bash
-sed '/pdf-viewer/,+1d' argocd/quiz-master.yaml | kubectl apply -n argocd -f -
+kubectl apply -f argocd/quiz-master.yaml -n argocd
 ```
-
-(En production, on applique directement `argocd/quiz-master.yaml` complet — les deux projets sont alors gérés ensemble, ce qui est le but recherché.)
 
 Vérifie que l'application a bien été créée et synchronisée :
 
