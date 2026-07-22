@@ -65,6 +65,19 @@ ArgoCD (tourne en permanence dans le cluster)
 
 `minikube` crée un petit cluster Kubernetes complet directement sur ton ordinateur (dans un conteneur Docker), pour s'entraîner sans toucher à un vrai serveur.
 
+### Prérequis
+
+Avant de commencer, installe ces outils (une seule fois) :
+
+| Outil | À quoi il sert ici | Vérifier l'installation |
+|---|---|---|
+| [Docker](https://docs.docker.com/get-docker/) | fait tourner les conteneurs (l'app, et minikube lui-même) | `docker --version` |
+| [minikube](https://minikube.sigs.k8s.io/docs/start/) | crée le cluster Kubernetes local | `minikube version` |
+| [kubectl](https://kubernetes.io/docs/tasks/tools/) | pour parler au cluster Kubernetes | `kubectl version --client` |
+| [Helm](https://helm.sh/docs/intro/install/) | pour prévisualiser/valider le chart (`helm template`, `helm lint`) | `helm version` |
+
+> ArgoCD n'a pas besoin d'être installé séparément : il tourne comme une application *dans* le cluster (voir Étape 2), et c'est lui qui utilise Helm en interne pour déployer.
+
 ### Étape 1 — Créer le cluster local
 
 ```bash
