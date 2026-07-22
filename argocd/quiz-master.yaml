@@ -8,7 +8,7 @@ spec:
   generators:
     - list:
         elements:
-          - appName: students-api
+          - appName: quiz-master
             repoURL: https://github.com/Sampanionyy/students-api.git
           - appName: pdf-viewer
             repoURL: https://github.com/Sampanionyy/pdf-viewer.git
@@ -23,7 +23,7 @@ spec:
       source:
         repoURL: '{{repoURL}}'
         targetRevision: main
-        path: first-chart   
+        path: quiz-master
 
         helm:
           valueFiles:

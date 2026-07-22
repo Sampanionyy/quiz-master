@@ -1,4 +1,4 @@
-# Default values for first-chart.
+# Default values for quiz-master.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -7,7 +7,7 @@ replicaCount: 2
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
-  repository: students-api-flask-api
+  repository: sampaniony/quiz-master
   pullPolicy: Never
   tag: "latest"
 service:
