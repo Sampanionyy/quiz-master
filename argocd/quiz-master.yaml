@@ -10,8 +10,6 @@ spec:
         elements:
           - appName: quiz-master
             repoURL: https://github.com/Sampanionyy/quiz-master.git
-          - appName: pdf-viewer
-            repoURL: https://github.com/Sampanionyy/pdf-viewer.git
 
   template:
     metadata:
