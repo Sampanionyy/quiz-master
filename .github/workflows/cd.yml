@@ -36,21 +36,3 @@ jobs:
           docker push sampaniony/quiz-master:$IMAGE_TAG
           docker tag sampaniony/quiz-master:$IMAGE_TAG sampaniony/quiz-master:latest
           docker push sampaniony/quiz-master:latest
-
-      - name: Update dev and prod branches
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -x
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          git fetch --all
-
-          git checkout dev || git checkout -b dev origin/dev
-          git merge origin/main --no-edit
-          git push origin dev
-
-          git checkout prod || git checkout -b prod origin/prod
-          git merge origin/main --no-edit
-          git push origin prod
