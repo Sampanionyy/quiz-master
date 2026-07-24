@@ -13,15 +13,12 @@ image:
 service:
   port: 5000
 
-# This deploys a Prometheus instance scraping quiz-master's /metrics endpoint
-prometheus:
-  enabled: true
-  image:
-    repository: prom/prometheus
-    tag: "latest"
-  service:
-    type: ClusterIP
-    port: 9090
+# Prometheus (kube-prometheus-stack) is installed cluster-wide via `helm install`,
+# outside of ArgoCD. This chart only declares the ServiceMonitor so the shared
+# Prometheus Operator discovers quiz-master's /metrics endpoint.
+monitoring:
+  serviceMonitor:
+    enabled: true
 
 env: production
 

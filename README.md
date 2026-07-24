@@ -179,7 +179,50 @@ helm lint quiz-master/
 
 ---
 
-## 5. Problèmes fréquents
+## 5. Monitoring : Prometheus + Grafana
+
+Le monitoring est volontairement séparé en deux parties bien distinctes, pour la même raison que le reste de ce README insiste sur le GitOps : **tout ce qui est propre à l'application passe par Git + ArgoCD, tout ce qui est infra de cluster ne passe pas par là**.
+
+### Infra partagée (Prometheus, Grafana, Alertmanager, l'Operator) — installation manuelle, hors ArgoCD
+
+C'est le chart communautaire [`kube-prometheus-stack`](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack), installé une fois par cluster avec un `helm install` classique, dans son propre namespace `monitoring`. Ce n'est **pas** une ressource de l'application quiz-master — plusieurs apps du cluster pourraient s'appuyer dessus — donc elle n'est **pas commitée dans ce repo** et ArgoCD ne la gère pas.
+
+```bash
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+kubectl create namespace monitoring
+helm install monitoring prometheus-community/kube-prometheus-stack \
+  --namespace monitoring
+```
+
+> Le nom de release `monitoring` compte : le Prometheus Operator ne prend en compte que les `ServiceMonitor` qui portent le label `release: monitoring` (voir plus bas).
+
+### Ressource applicative (le `ServiceMonitor`) — dans Git, géré par ArgoCD
+
+Le fichier [quiz-master/templates/servicemonitor.yaml](quiz-master/templates/servicemonitor.yaml) dit au Prometheus Operator "va scraper `/metrics` sur le service `quiz-master`, toutes les 5 secondes". Il est activé par `monitoring.serviceMonitor.enabled: true` dans [values.yaml](quiz-master/values.yaml) (activé par défaut), et déployé exactement comme le reste du chart : commit → push → PR → merge sur `main` → ArgoCD synchronise. **Pas de `kubectl apply` manuel sur cette ressource.**
+
+L'application elle-même expose déjà `/metrics` nativement (via `prometheus-flask-exporter`, voir [app/app.py](app/app.py)) — aucune configuration supplémentaire n'est nécessaire côté code.
+
+### Vérifier que ça fonctionne
+
+```bash
+# Prometheus a bien détecté quiz-master comme cible "UP" ?
+kubectl port-forward -n monitoring svc/monitoring-kube-prometheus-prometheus 9090:9090
+# → ouvre http://localhost:9090/targets, cherche "quiz-master"
+
+# Grafana est accessible, avec la datasource Prometheus déjà configurée ?
+kubectl port-forward -n monitoring svc/monitoring-grafana 3000:80
+# → ouvre http://localhost:3000, login admin / mot de passe :
+kubectl -n monitoring get secret monitoring-grafana -o jsonpath="{.data.admin-password}" | base64 -d; echo
+```
+
+La datasource Prometheus est pré-configurée automatiquement par le chart `kube-prometheus-stack` — rien à faire de plus dans Grafana.
+
+---
+
+## 6. Problèmes fréquents
 
 - **Un pod reste en `ErrImageNeverPull`** : le fichier [quiz-master/values.yaml](quiz-master/values.yaml) doit avoir `pullPolicy: IfNotPresent` (pas `Never`) pour que Kubernetes aille chercher l'image sur Docker Hub.
 - **`minikube start` échoue avec une erreur d'apiserver (`K8S_APISERVER_MISSING`)** : le profil local est probablement corrompu (souvent après un arrêt brutal de Docker). Repartir sur une base saine :
