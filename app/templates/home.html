@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuizMaster - Testez vos connaissances</title>
+    <link rel="stylesheet" href="/static/css/theme.css">
     <link rel="stylesheet" href="/static/css/home.css">
 </head>
 <body>
-    <div class="container">
+    <div class="bg-blobs">
+        <span class="bg-blob blob-1"></span>
+        <span class="bg-blob blob-2"></span>
+        <span class="bg-blob blob-3"></span>
+        <span class="bg-blob blob-4"></span>
+    </div>
+
+    <div class="container page">
         <header>
             <div class="logo">
                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -16,9 +24,14 @@
                     <line x1="12" y1="17" x2="12.01" y2="17"/>
                 </svg>
             </div>
-            <h1>QuizMaster</h1>
-            <p class="subtitle">Testez vos connaissances, défiez vos amis, devenez un champion</p>
-            <a href="/quiz" class="cta-button">Commencer maintenant</a>
+            <h1 class="font-display">QuizMaster</h1>
+            <p class="subtitle">Teste tes connaissances, défie tes amis, deviens un champion</p>
+            <a href="/quiz" class="btn btn-primary cta-button">
+                Commencer maintenant
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
         </header>
 
         <div class="features">
@@ -33,8 +46,8 @@
                         <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
                     </svg>
                 </div>
-                <div class="feature-title">Classement en Direct</div>
-                <p class="feature-desc">Comparez vos scores avec d'autres joueurs et gravissez les échelons du classement mondial</p>
+                <div class="feature-title font-display">Classement en direct</div>
+                <p class="feature-desc">Compare tes scores avec d'autres joueurs et gravis les échelons du classement</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
@@ -43,8 +56,8 @@
                         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                     </svg>
                 </div>
-                <div class="feature-title">6 Catégories</div>
-                <p class="feature-desc">Sports, Chimie, Économie, Astronomie, Maths et Architecture - trouvez votre domaine favori</p>
+                <div class="feature-title font-display">6 catégories</div>
+                <p class="feature-desc">Sports, Chimie, Économie, Astronomie, Maths et Architecture - trouve ton domaine favori</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
@@ -52,8 +65,8 @@
                         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                     </svg>
                 </div>
-                <div class="feature-title">Questions Variées</div>
-                <p class="feature-desc">Des dizaines de questions soigneusement sélectionnées pour tester vos connaissances</p>
+                <div class="feature-title font-display">Questions variées</div>
+                <p class="feature-desc">Des dizaines de questions soigneusement sélectionnées pour tester tes connaissances</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
@@ -63,96 +76,28 @@
                         <line x1="6" y1="20" x2="6" y2="14"/>
                     </svg>
                 </div>
-                <div class="feature-title">Suivi des Progrès</div>
-                <p class="feature-desc">Suivez vos statistiques, votre taux de réussite et votre évolution dans le temps</p>
+                <div class="feature-title font-display">Suivi des progrès</div>
+                <p class="feature-desc">Suis tes statistiques, ton taux de réussite et ton évolution dans le temps</p>
             </div>
         </div>
 
-        <div class="stats-section">
+        <div class="stats-section surface-card">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number">150+</div>
+                    <div class="stat-number font-display" data-count data-value="150" data-suffix="+">0</div>
                     <div class="stat-label">Quiz joués</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">35+</div>
+                    <div class="stat-number font-display" data-count data-value="35" data-suffix="+">0</div>
                     <div class="stat-label">Questions</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">6</div>
+                    <div class="stat-number font-display" data-count data-value="6" data-suffix="">0</div>
                     <div class="stat-label">Catégories</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">7</div>
+                    <div class="stat-number font-display" data-count data-value="7" data-suffix="">0</div>
                     <div class="stat-label">Joueurs actifs</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="categories-preview">
-            <h2 class="section-title">Choisissez votre catégorie</h2>
-            <div class="categories-grid">
-                <div class="category-preview" onclick="window.location.href='/quiz'">
-                    <div class="category-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 2c2.5 4 2.5 8 0 12M2 12c4-2.5 8-2.5 12 0M12 22c-2.5-4-2.5-8 0-12M22 12c-4 2.5-8 2.5-12 0"/>
-                        </svg>
-                    </div>
-                    <div class="category-name">Sports</div>
-                </div>
-                <div class="category-preview" onclick="window.location.href='/quiz'">
-                    <div class="category-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="7.5" cy="15.5" r="5.5"/>
-                            <path d="M7 7h10M7 7l1.5 8.5M7 7L5 4M17 7l-1.5 8.5M17 7l2-3"/>
-                        </svg>
-                    </div>
-                    <div class="category-name">Chimie</div>
-                </div>
-                <div class="category-preview" onclick="window.location.href='/quiz'">
-                    <div class="category-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="1" x2="12" y2="23"/>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                        </svg>
-                    </div>
-                    <div class="category-name">Économie</div>
-                </div>
-                <div class="category-preview" onclick="window.location.href='/quiz'">
-                    <div class="category-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="5"/>
-                            <line x1="12" y1="1" x2="12" y2="3"/>
-                            <line x1="12" y1="21" x2="12" y2="23"/>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                            <line x1="1" y1="12" x2="3" y2="12"/>
-                            <line x1="21" y1="12" x2="23" y2="12"/>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                        </svg>
-                    </div>
-                    <div class="category-name">Astronomie</div>
-                </div>
-                <div class="category-preview" onclick="window.location.href='/quiz'">
-                    <div class="category-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="4" y1="9" x2="20" y2="9"/>
-                            <line x1="4" y1="15" x2="20" y2="15"/>
-                            <line x1="10" y1="3" x2="8" y2="21"/>
-                            <line x1="16" y1="3" x2="14" y2="21"/>
-                        </svg>
-                    </div>
-                    <div class="category-name">Maths</div>
-                </div>
-                <div class="category-preview" onclick="window.location.href='/quiz'">
-                    <div class="category-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 21h18M4 18h16M6 18V9M10 18V9M14 18V9M18 18V9M12 2L4 9h16L12 2z"/>
-                        </svg>
-                    </div>
-                    <div class="category-name">Architecture</div>
                 </div>
             </div>
         </div>
@@ -161,5 +106,7 @@
             <p>© 2024 QuizMaster. Développé par Sampaniony</p>
         </footer>
     </div>
+
+    <script src="/static/js/home.js"></script>
 </body>
 </html>

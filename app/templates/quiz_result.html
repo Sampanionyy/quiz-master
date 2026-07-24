@@ -4,87 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Résultats du Quiz</title>
+    <link rel="stylesheet" href="/static/css/theme.css">
     <link rel="stylesheet" href="/static/css/quiz_result.css">
 </head>
 <body>
-    <div class="container">
-        <div class="score-card">
+    <div class="bg-blobs">
+        <span class="bg-blob blob-1"></span>
+        <span class="bg-blob blob-2"></span>
+        <span class="bg-blob blob-3"></span>
+    </div>
+
+    <div class="container page">
+        <div class="score-card surface-card">
             {% if percentage >= 80 %}
-                <div class="score-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                        <path d="M4 22h16"/>
-                        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-                        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-                        <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/>
+                <div class="medal medal-gold">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"/>
+                        <circle cx="12" cy="17" r="5"/>
+                        <path d="M12 15.5v3M10.6 17h2.8"/>
                     </svg>
                 </div>
-                <div class="score-title">Excellent !</div>
+                <div class="score-title font-display">Excellent !</div>
                 <div class="score-subtitle">Performance exceptionnelle, {{ student.name }} !</div>
             {% elif percentage >= 60 %}
-                <div class="score-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                        <line x1="9" y1="9" x2="9.01" y2="9"/>
-                        <line x1="15" y1="9" x2="15.01" y2="9"/>
+                <div class="medal medal-silver">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"/>
+                        <circle cx="12" cy="17" r="5"/>
                     </svg>
                 </div>
-                <div class="score-title">Bien joué !</div>
+                <div class="score-title font-display">Bien joué !</div>
                 <div class="score-subtitle">Bon travail, {{ student.name }} !</div>
             {% elif percentage >= 40 %}
-                <div class="score-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="8" y1="15" x2="16" y2="15"/>
-                        <line x1="9" y1="9" x2="9.01" y2="9"/>
-                        <line x1="15" y1="9" x2="15.01" y2="9"/>
+                <div class="medal medal-bronze">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"/>
+                        <circle cx="12" cy="17" r="5"/>
                     </svg>
                 </div>
-                <div class="score-title">Pas mal !</div>
+                <div class="score-title font-display">Pas mal !</div>
                 <div class="score-subtitle">Continue tes efforts, {{ student.name }} !</div>
             {% else %}
-                <div class="score-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                <div class="medal medal-none">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
                         <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
                         <line x1="9" y1="9" x2="9.01" y2="9"/>
                         <line x1="15" y1="9" x2="15.01" y2="9"/>
                     </svg>
                 </div>
-                <div class="score-title">Continue !</div>
+                <div class="score-title font-display">Continue !</div>
                 <div class="score-subtitle">Tu peux faire mieux, {{ student.name }} !</div>
             {% endif %}
 
-            <div class="score-circle">
-                <div class="score-number">{{ score }}</div>
-                <div class="score-total">/ {{ total }}</div>
+            {% set ns = namespace(cur=0, max=0) %}
+            {% for answer in answers %}
+                {% if answer.is_correct %}
+                    {% set ns.cur = ns.cur + 1 %}
+                    {% if ns.cur > ns.max %}{% set ns.max = ns.cur %}{% endif %}
+                {% else %}
+                    {% set ns.cur = 0 %}
+                {% endif %}
+            {% endfor %}
+            {% if ns.max >= 2 %}
+            <div class="streak-badge pill pill-gold">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+                </svg>
+                Série de {{ ns.max }} bonnes réponses
+            </div>
+            {% endif %}
+
+            <div class="score-donut">
+                <svg viewBox="0 0 120 120">
+                    <defs>
+                        <linearGradient id="donut-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#FBBF24"/>
+                            <stop offset="100%" stop-color="#7C3AED"/>
+                        </linearGradient>
+                    </defs>
+                    <circle class="donut-track" cx="60" cy="60" r="54"/>
+                    <circle class="donut-fill" cx="60" cy="60" r="54"
+                            style="--donut-offset: {{ (339.29 * (1 - percentage / 100)) | round(2) }};"/>
+                </svg>
+                <div class="score-circle">
+                    <div id="scoreNumber" class="score-number font-display" data-target="{{ score }}">0</div>
+                    <div class="score-total">/ {{ total }}</div>
+                </div>
             </div>
 
             <div class="stats-row">
                 <div class="stat-box">
-                    <div class="stat-value">{{ percentage }}%</div>
+                    <div class="stat-value font-display">{{ percentage }}%</div>
                     <div class="stat-label">Réussite</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value">{{ score }}</div>
+                    <div class="stat-value font-display">{{ score }}</div>
                     <div class="stat-label">Correctes</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value">{{ total - score }}</div>
+                    <div class="stat-value font-display">{{ total - score }}</div>
                     <div class="stat-label">Incorrectes</div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-value">+{{ points_earned }}</div>
+                <div class="stat-box stat-box-gold">
+                    <div class="stat-value font-display">+{{ points_earned }}</div>
                     <div class="stat-label">Points</div>
                 </div>
             </div>
         </div>
 
-        <div class="review-section">
+        <div class="review-section surface-card">
             <div class="review-header">
-                <h2 class="review-title">Révision des réponses</h2>
+                <h2 class="review-title font-display">Révision des réponses</h2>
                 <button class="toggle-button" onclick="toggleReview()">
                     <span id="toggleText">Afficher tout</span>
                 </button>
@@ -96,11 +127,11 @@
                     <div class="answer-question">
                         <div class="answer-icon">
                             {% if answer.is_correct %}
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12"/>
                             </svg>
                             {% else %}
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="18" y1="6" x2="6" y2="18"/>
                                 <line x1="6" y1="6" x2="18" y2="18"/>
                             </svg>
@@ -135,15 +166,15 @@
         </div>
 
         <div class="actions">
-            <a href="/quiz" class="action-button secondary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-right: 8px;">
+            <a href="/quiz" class="action-button secondary btn btn-ghost">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
                 Retour aux quiz
             </a>
-            <a href="/quiz/play/{{ category.index.lower() }}?student_id={{ student.id }}" class="action-button primary">
+            <a href="/quiz/play/{{ category.index.lower() }}?student_id={{ student.id }}" class="action-button primary btn btn-primary">
                 Réessayer
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-left: 8px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="23 4 23 10 17 10"/>
                     <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
                 </svg>
