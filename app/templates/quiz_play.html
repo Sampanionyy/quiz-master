@@ -4,56 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz - {{ category.name }}</title>
+    <link rel="stylesheet" href="/static/css/theme.css">
     <link rel="stylesheet" href="/static/css/quiz_play.css">
 </head>
 <body>
-    <div class="container">
-        <div class="quiz-header">
+    {% from 'partials/avatar.html' import avatar %}
+    <div class="bg-blobs">
+        <span class="bg-blob blob-1"></span>
+        <span class="bg-blob blob-2"></span>
+    </div>
+
+    <div class="container page">
+        <div class="quiz-header surface-card">
             <div class="student-info">
-                <div class="student-avatar">{{ student.name[0] }}</div>
+                <div class="avatar-ring">
+                    {{ avatar(student.id) }}
+                </div>
                 <div class="student-details">
-                    <h2>{{ student.name }}</h2>
-                    <span class="category-badge">
+                    <h2 class="font-display">{{ student.name }}</h2>
+                    <span class="category-badge pill pill-light">
                         {{ category.icon | safe }}
                         {{ category.name }}
                     </span>
                 </div>
             </div>
             <div class="timer-section">
-                <div id="timer" class="timer">02:00</div>
-                <div class="timer-label">Temps restant</div>
+                <svg class="timer-ring" viewBox="0 0 80 80">
+                    <circle class="timer-ring-track" cx="40" cy="40" r="34"/>
+                    <circle id="timerRingProgress" class="timer-ring-progress" cx="40" cy="40" r="34"/>
+                </svg>
+                <div class="timer-text">
+                    <div id="timer" class="timer font-display">02:00</div>
+                    <div class="timer-label">restant</div>
+                </div>
             </div>
         </div>
 
-        <div class="progress-container">
+        <div class="progress-container surface-card">
             <div class="progress-info">
-                <span class="progress-text">Question <span id="currentQuestion">0</span> sur {{ total_questions }}</span>
-                <span class="progress-text"><span id="answeredCount">0</span> répondu(es)</span>
+                <span class="progress-text">Question <span id="currentQuestion" class="font-display">0</span> sur {{ total_questions }}</span>
+                <span class="progress-text"><span id="answeredCount" class="font-display">0</span> répondu(es)</span>
             </div>
             <div class="progress-bar">
                 <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-dots">
+                {% for i in range(total_questions) %}
+                <span class="progress-dot" data-dot="{{ loop.index }}"></span>
+                {% endfor %}
             </div>
         </div>
 
         <form id="quizForm" method="POST" action="/quiz/submit" class="quiz-form">
             {% for question in questions %}
-            <div class="question-block" data-question="{{ loop.index }}">
+            <div class="question-block surface-card" data-question="{{ loop.index }}">
                 <div class="question-header">
-                    <div class="question-number">{{ loop.index }}</div>
+                    <div class="question-number font-display">{{ loop.index }}</div>
                     <div class="question-text">{{ question.question }}</div>
                 </div>
                 <div class="options-grid">
                     {% for option in question.options %}
                     <div>
-                        <input type="radio" 
-                               id="q{{ question.id }}_opt{{ loop.index }}" 
-                               name="question_{{ question.id }}" 
+                        <input type="radio"
+                               id="q{{ question.id }}_opt{{ loop.index }}"
+                               name="question_{{ question.id }}"
                                value="{{ option }}"
                                class="option-input"
                                onchange="updateProgress()">
                         <label for="q{{ question.id }}_opt{{ loop.index }}" class="option-label">
                             <div class="option-radio"></div>
                             <div class="option-text">{{ option }}</div>
+                            <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
                         </label>
                     </div>
                     {% endfor %}
@@ -62,7 +85,7 @@
             {% endfor %}
 
             <div class="submit-section">
-                <button type="submit" class="submit-button">
+                <button type="submit" class="submit-button btn btn-primary">
                     Soumettre mes réponses
                     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
@@ -81,11 +104,12 @@
                     <polyline points="12 6 12 12 16 14"/>
                 </svg>
             </div>
-            <div class="modal-title">Temps écoulé !</div>
+            <div class="modal-title font-display">Temps écoulé !</div>
             <div class="modal-text">Le quiz va être soumis automatiquement...</div>
         </div>
     </div>
 
+    <script src="/static/js/toast.js"></script>
     <script src="/static/js/quiz_play.js"></script>
 </body>
 </html>
