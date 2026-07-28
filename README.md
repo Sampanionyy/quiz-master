@@ -242,5 +242,5 @@ quiz-master/            # chart Helm (le "moule" pour générer les manifestes K
 argocd/quiz-master.yaml # dit à ArgoCD quel dépôt/chart surveiller et déployer
 .github/workflows/      # CI : construit l'image Docker et la pousse sur Docker Hub
 Dockerfile              # comment construire l'image de l'application
-docker-compose.yml      # pour lancer l'appli localement avec Docker
+compose.yml             # pour lancer l'appli localement avec Docker
 ```
