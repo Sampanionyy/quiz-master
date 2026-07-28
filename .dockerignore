@@ -3,3 +3,9 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+.git
+.github/
+tests/
+quiz-master/
+README.md
+argocd/

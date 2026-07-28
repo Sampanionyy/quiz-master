@@ -10,8 +10,6 @@ image:
   repository: sampaniony/quiz-master
   pullPolicy: IfNotPresent
   tag: "latest"
-service:
-  port: 5000
 
 # Prometheus (kube-prometheus-stack) is installed cluster-wide via `helm install`,
 # outside of ArgoCD. This chart only declares the ServiceMonitor so the shared
