@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from prometheus_flask_exporter import PrometheusMetrics
+import secrets
 import sys
 import os
 
@@ -16,7 +17,15 @@ from routes.quiz import quiz_bp
 app = Flask(__name__, template_folder="templates")
 
 # Configuration pour les sessions (nécessaire pour le quiz)
-app.config['SECRET_KEY'] = 'votre-cle-secrete-ici-changez-la-en-production'
+secret_key = os.environ.get('SECRET_KEY')
+if not secret_key:
+    secret_key = secrets.token_hex(32)
+    app.logger.warning(
+        "SECRET_KEY n'est pas définie dans l'environnement : une clé aléatoire "
+        "a été générée pour ce processus. Les sessions existantes seront invalidées "
+        "à chaque redémarrage. Définissez SECRET_KEY en production."
+    )
+app.config['SECRET_KEY'] = secret_key
 
 # Expose les métriques Prometheus sur /metrics
 metrics = PrometheusMetrics(app)
@@ -31,6 +40,11 @@ app.register_blueprint(quiz_bp)
 @app.route('/')
 def home():
     return render_template('home.html')
+
+# Probe de santé Kubernetes 
+@app.route('/healthz')
+def healthz():
+    return jsonify(status="ok"), 200
 
 # Lancer le serveur
 if __name__ == '__main__':
