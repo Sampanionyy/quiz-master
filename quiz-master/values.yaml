@@ -9,7 +9,9 @@ replicaCount: 2
 image:
   repository: sampaniony/quiz-master
   pullPolicy: IfNotPresent
-  tag: "latest"
+  # Tag géré par la CD (.github/workflows/cd.yml) : un SHA de commit immuable,
+  # réécrit automatiquement après chaque build réussi. Ne pas éditer à la main.
+  tag: "8e5218398adcd545d510938e7d13c87a6af3800d"
 
 # Prometheus (kube-prometheus-stack) is installed cluster-wide via `helm install`,
 # outside of ArgoCD. This chart only declares the ServiceMonitor so the shared
