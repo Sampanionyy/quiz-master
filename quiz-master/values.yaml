@@ -10,7 +10,7 @@ image:
   pullPolicy: IfNotPresent
   # Tag géré par la CD (.github/workflows/cd.yml) : un SHA de commit immuable,
   # réécrit automatiquement après chaque build réussi. Ne pas éditer à la main.
-  tag: "f9f8956ab334b1a1eb21a583fc9d6cccbfe549ee"
+  tag: "ca6ec5e06b7e948219800b6ad6bee90046521ec2"
 # Prometheus (kube-prometheus-stack) is installed cluster-wide via `helm install`,
 # outside of ArgoCD. This chart only declares the ServiceMonitor so the shared
 # Prometheus Operator discovers quiz-master's /metrics endpoint.
@@ -95,21 +95,21 @@ httpRoute:
         - path:
             type: PathPrefix
             value: /headers
-  #   filters:
-  #   - type: RequestHeaderModifier
-  #     requestHeaderModifier:
-  #       set:
-  #       - name: My-Overwrite-Header
-  #         value: this-is-the-only-value
-  #       remove:
-  #       - User-Agent
-  # - matches:
-  #   - path:
-  #       type: PathPrefix
-  #       value: /echo
-  #     headers:
-  #     - name: version
-  #       value: v2
+            #   filters:
+            #   - type: RequestHeaderModifier
+            #     requestHeaderModifier:
+            #       set:
+            #       - name: My-Overwrite-Header
+            #         value: this-is-the-only-value
+            #       remove:
+            #       - User-Agent
+            # - matches:
+            #   - path:
+            #       type: PathPrefix
+            #       value: /echo
+            #     headers:
+            #     - name: version
+            #       value: v2
 resources: {}
 # We usually recommend not to specify default resources and to leave this as a conscious
 # choice for the user. This also increases chances charts run on environments with little
